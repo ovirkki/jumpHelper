@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp">
+  <TextView
+      android:text="Select formation and add comment"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/textView1" />
+  <Spinner
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:textColor="?attr/colorPrimaryDark"
+    android:id="@+id/formationSelectSpinner" />
+  <EditText
+    android:id="@+id/newCommentText"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"/>
+  <Button
+    android:text="Cancel"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/CancelButton"
+    android:layout_marginTop="10dp" />
+  <Button
+      android:text="Save"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/SaveButton"
+      android:layout_marginTop="10dp" />
+</LinearLayout>

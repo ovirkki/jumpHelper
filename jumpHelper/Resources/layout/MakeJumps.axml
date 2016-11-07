@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px">
+    <RadioGroup
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/categories">
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Rookie"
+            android:id="@+id/rRadioBtn" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A"
+            android:id="@+id/aRadioBtn" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AA"
+            android:id="@+id/aaRadioBtn" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AAA"
+            android:id="@+id/aaaRadioBtn" />
+    </RadioGroup>
+    <Button
+        android:text="Make jumps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/makeJumpsBtn"
+        android:layout_marginBottom="0.0dp" />
+    <ListView android:id="@+id/jumpList"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+      />
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/jumpOutput" />
+</LinearLayout>
