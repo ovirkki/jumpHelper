@@ -2,13 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-using Android.App;
+using Android.Support.V4.App;
+//using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FragmentManager = Android.Support.V4.App.FragmentManager;
 
 namespace jumpHelper
 {
@@ -16,8 +19,8 @@ namespace jumpHelper
     {
         SortedDictionary<string, List<string>> noteDictionary;
         List<string> filterList;
-        Activity context;
-        public FormationsWithNotesAdapter(Activity context, SortedDictionary<string, List<string>> noteDictionary, List<string> filterList)
+        FragmentActivity context;
+        public FormationsWithNotesAdapter(FragmentActivity context, SortedDictionary<string, List<string>> noteDictionary, List<string> filterList)
         {
             this.noteDictionary = noteDictionary;
             this.context = context;
@@ -83,8 +86,8 @@ namespace jumpHelper
 
         public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
-
-            string comment = FilteredData[getKey(groupPosition)][childPosition];
+            string formation = getKey(groupPosition);
+            string comment = FilteredData[formation][childPosition];
 
             View view = convertView;
             if (view == null)
@@ -93,8 +96,28 @@ namespace jumpHelper
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowComments, null);
             }
             view.FindViewById<TextView>(Resource.Id.commentField).Text = comment;
+            ImageButton removeButton = view.FindViewById<ImageButton>(Resource.Id.removeComment);
+            removeButton.Click += ((sender, eventArgs) =>
+            {
+                DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
+                startDialogFragment(dialogFrag);
+            });
             return view;
         }
+        
+        private void startDialogFragment(DialogFragment dialogFragment)
+        {
+            FragmentTransaction ft = context.SupportFragmentManager.BeginTransaction();
+            Fragment prev = context.SupportFragmentManager.FindFragmentByTag("dialog");
+            if (prev != null)
+            {
+                ft.Remove(prev);
+            }
+            ft.AddToBackStack(null);
+
+            dialogFragment.Show(ft, "dialog");
+        }
+        
 
         public override bool HasStableIds
         {

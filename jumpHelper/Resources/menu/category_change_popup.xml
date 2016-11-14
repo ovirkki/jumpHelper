@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/rookie"
+        android:title="R" />
+    <item android:id="@+id/intermediate"
+        android:title="A" />
+    <item android:id="@+id/advanced"
+        android:title="AA" />
+    <item android:id="@+id/open"
+        android:title="AAA" />
+</menu>

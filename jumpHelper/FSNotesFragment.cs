@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 using Android.Support.V4.App;
 using Android.Content;
@@ -13,7 +14,7 @@ using Android.Widget;
 using Android.Support.V4.View;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
-//using Android.Support.V7.Widget;
+using v7Widget = Android.Support.V7.Widget;
 
 
 namespace jumpHelper
@@ -27,7 +28,7 @@ namespace jumpHelper
         public FSNotesFragment(string title) : base(title)
         {
             this.title = title;
-            this.filterList = FSNotesHandler.getFormationFilterList();
+            this.filterList = new List<string>();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)
@@ -47,9 +48,6 @@ namespace jumpHelper
                 case Resource.Id.add_note:
                     requestNewComment();
                     return true;
-                case Resource.Id.category:
-                    updateCategory();
-                    return true;
                 default:
                     return true;
             }
@@ -57,18 +55,55 @@ namespace jumpHelper
 
         private void initNoteList(View view)
         {
+            this.filterList = FSNotesHandler.getFormationFilterList();
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
             this.adapter = new FormationsWithNotesAdapter(this.Activity, FSNotesHandler.Notes, this.filterList);
             listOutput.SetAdapter(this.adapter);
-            FSNotesHandler.DataUpdated += this.onDataUpdate;
+            AppEventHandler.DataUpdated += this.onDataUpdate;
+            AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
         }
 
-        private void onDataUpdate(object sender, EventArgs e)
+        private async Task updateDataToFile(string operation, string formation, string comment)
         {
+            switch (operation)
+            {
+                case FSNotesHandler.ADD_OPERATION:
+                    await FileHandler.addDataAsync(formation, comment);
+                    break;
+                case FSNotesHandler.REMOVE_OPERATION:
+                    await FileHandler.removeDataAsync(formation, comment);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private async void onDataUpdate(object sender, NoteDataUpdateEventArgs e)
+        {
+            this.adapter.NotifyDataSetChanged();
+            await updateDataToFile(e.Operation, e.Formation, e.Comment);//add settings to turn automatic saving on/off  
+        }
+
+        private async Task updateFilterList()
+        {
+            List<string> filteredList = await FSNotesHandler.getFormationFilterListAsync();
+            this.filterList.Clear();
+            this.filterList.AddRange(filteredList);
+        }
+
+        private async void onCategoryUpdate(object sender, EventArgs e)
+        {
+            await updateFilterList();
             this.adapter.NotifyDataSetChanged();
         }
 
         private void requestNewComment()
+        {
+            AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance();
+            startDialogFragment(commentDialog);
+        }
+
+        public void startDialogFragment(DialogFragment dialogFragment)
         {
             FragmentTransaction ft = FragmentManager.BeginTransaction();
             //Remove fragment else it will crash as it is already added to backstack
@@ -78,61 +113,9 @@ namespace jumpHelper
                 ft.Remove(prev);
             }
             ft.AddToBackStack(null);
-            CommentDialogFragment commentDialog = CommentDialogFragment.NewInstance();
+            
             //Add fragment
-            commentDialog.Show(ft, "dialog");
-        }
-
-        private void addComment()
-        {
-            FSNotesHandler.addComment("D", "d kommentti");
-            this.adapter.NotifyDataSetChanged();
-        }
-
-        private void updateCategory()
-        {
-            FSNotesHandler.updateCategory("A");
-            this.filterList.Clear();
-            this.filterList.AddRange(FSNotesHandler.getFormationFilterList());
-            this.adapter.NotifyDataSetChanged();
-        }
-    }
-
-    public class CommentDialogFragment : DialogFragment
-    {
-
-        private EditText editText;
-        public static CommentDialogFragment NewInstance()
-        {
-            CommentDialogFragment fragment = new CommentDialogFragment();
-            fragment.Arguments = new Bundle();
-            return fragment;
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            View view = inflater.Inflate(Resource.Layout.NewCommentLayout, container, false);
-
-            Spinner spinner = view.FindViewById<Spinner>(Resource.Id.formationSelectSpinner);
-            List<string> formations = FSNotesHandler.getFormationFilterList();
-            var adapter = new ArrayAdapter<string>(this.Activity, Android.Resource.Layout.SimpleSpinnerItem, formations);
-            spinner.Adapter = adapter;
-
-            EditText edittext = view.FindViewById<EditText>(Resource.Id.newCommentText);
-            Button saveButton = view.FindViewById<Button>(Resource.Id.SaveButton);
-            Button cancelButton = view.FindViewById<Button>(Resource.Id.CancelButton);
-            saveButton.Click += delegate
-            {
-                string formation = spinner.SelectedItem.ToString();
-                FSNotesHandler.addComment(formation, edittext.Text);
-                Dismiss();
-                Toast.MakeText(Activity, "Saved comment for " + formation, ToastLength.Short).Show();
-            };
-            cancelButton.Click += delegate {
-                Dismiss();
-                Toast.MakeText(Activity, "Canceled...", ToastLength.Short).Show();
-            };
-            return view;
+            dialogFragment.Show(ft, "dialog");
         }
     }
 }

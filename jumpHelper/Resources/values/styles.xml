@@ -10,7 +10,7 @@
     <item name="windowNoTitle">true</item>
     <item name="colorPrimary">@color/lightseagreen</item>
     <item name="colorPrimaryDark">@color/teal</item>
-    <item name="colorAccent">@color/teal</item>
+    <item name="colorAccent">@color/teal</item> 
   </style>
 
   <style name="AppTabLayout" parent="Widget.Design.TabLayout">

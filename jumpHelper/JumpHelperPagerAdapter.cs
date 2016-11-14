@@ -23,6 +23,7 @@ namespace jumpHelper
         {
             fragmentList.Add(new FSNotesFragment("FS notes"));
             fragmentList.Add(new MakeJumpsFragment("MakeJumps"));
+            //FSNotesHandler.initialize();
         }
 
         public override int Count

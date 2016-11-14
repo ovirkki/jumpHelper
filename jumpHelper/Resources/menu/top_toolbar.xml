@@ -8,8 +8,7 @@
      android:title="Add note" />
   <item
     android:id="@+id/category"
-    app:showAsAction="always"
-    android:title="R" />
+    app:showAsAction="always" />
   <item
        android:id="@+id/menu_settings"
        android:showAsAction="never"

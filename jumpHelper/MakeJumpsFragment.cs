@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+
 using Android.App;
 using Android.Support.V4.App;
 using Android.Content;
@@ -15,22 +17,30 @@ namespace jumpHelper
 {
     public class MakeJumpsFragment : jumpHelperFragment
     {
-        private List<List<string>> jumps;
+        //private List<List<string>> jumps;
 
         public MakeJumpsFragment(string title) : base(title)
         {}
-
-        public override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
-
-        }
         
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)
         {
             View view = inflater.Inflate(Resource.Layout.MakeJumps, container, false);
             initializeMakeJump(view);
             return view;
+        }
+
+        private async Task<string[]> convertJumpsToArrayAsync(List<List<string>> jumpList)
+        {
+            return await Task.Run(() =>
+            {
+                List<string> converted = new List<string>();
+                jumpList.ForEach(delegate (List<string> formList)
+                {
+                    string jump = string.Join(",", formList);
+                    converted.Add(jump);
+                });
+                return converted.ToArray();
+            });
         }
 
         private void initializeMakeJump(View view)
@@ -40,17 +50,18 @@ namespace jumpHelper
             RadioGroup radioGroup = view.FindViewById<RadioGroup>(Resource.Id.categories);
             ListView listOutput = view.FindViewById<ListView>(Resource.Id.jumpList);
 
-            makeJumpBtn.Click += (object sender, EventArgs e) =>
+            makeJumpBtn.Click += async (object sender, EventArgs e) =>
             {
                 //output.Text = "";
-                string[] categoryMapping = { "R", "A", "AA", "AAA" };
+                /*string[] categoryMapping = { "R", "A", "AA", "AAA" };
                 int checkedRadioButtonId = radioGroup.CheckedRadioButtonId;
                 RadioButton checkedRadioButton = view.FindViewById<RadioButton>(radioGroup.CheckedRadioButtonId);
                 int index = radioGroup.IndexOfChild(checkedRadioButton);
-                MakeJumpsController makeJumps = new MakeJumpsController(categoryMapping[index]);
-                this.jumps = makeJumps.getJumps();
-                string[] jumpArray = makeJumps.getJumpsArray();
-                SortedDictionary<string, List<string>> comments = FSNotesHandler.Notes;
+                MakeJumpsController makeJumps = new MakeJumpsController(categoryMapping[index]);*/
+                //this.jumps = makeJumps.getJumps();
+                List<List<string>> jumps = await FSNotesHandler.getRandomizedJumps();
+                string[] jumpArray = await convertJumpsToArrayAsync(jumps);
+                //SortedDictionary<string, List<string>> comments = FSNotesHandler.Notes;
                 //var adapter = new JumpListViewAdapter(this.Activity, this.jumps, comments);
                 var adapter = new ArrayAdapter<String>(this.Activity, Android.Resource.Layout.SimpleListItem1, jumpArray);
                 listOutput.Adapter = adapter;

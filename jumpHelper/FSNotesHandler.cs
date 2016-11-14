@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Text;
 
 using Android.App;
@@ -14,9 +15,17 @@ namespace jumpHelper
 {
     public static class FSNotesHandler
     {
-        private static SortedDictionary<string, List<string>> commentDictionary =
-            new SortedDictionary<string, List<string>>(FileHandler.getCompleteDataAsDictionary());
-        private static Category category = new Rookie(); //init category
+        public const string ROOKIE_ID = "R";
+        public const string INTERMEDIATE_ID = "A";
+        public const string ADVANCED_ID = "AA";
+        public const string OPEN_ID = "AAA";
+
+        public const string ADD_OPERATION = "ADD";
+        public const string REMOVE_OPERATION = "REMOVE";
+
+        private static SortedDictionary<string, List<string>> commentDictionary
+            = new SortedDictionary<string, List<string>>(FileHandler.getCompleteDataAsDictionary());
+        private static Category category;
 
         public static SortedDictionary<string, List<string>> Notes
         {
@@ -33,58 +42,106 @@ namespace jumpHelper
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
-        private static void OnDataUpdated(EventArgs e)
+        public static void initialize()
         {
-            DataUpdated?.Invoke(null, e);
+            category = new Rookie();
+        }
+        /*
+        public async static Task<string> CategoryName
+        {
+            get {
+                //Task<string> returnValue = new Task<string>(category.ShortName);
+                return await category.ShortName;
+            }
+        }*/
+
+        public async static Task<string> getCategoryName()
+        {
+            //return category.ShortName;
+            return await category.getShortName();
         }
 
-        public static event EventHandler DataUpdated;
+        public static string CategoryName
+        {
+            //return category.ShortName;
+            get { return category.ShortName; }
+        }
+
+        public static bool isCategorySet()
+        {
+            return category != null;
+        }
+
+        public async static Task<List<string>> getFormationFilterListAsync()
+        {
+            return await Task.FromResult(category.FormationList);
+        }
 
         public static List<string> getFormationFilterList()
         {
-            return category.getFormations();
+            return category.FormationList;
         }
 
         public static void updateCategory(string categoryString)
         {
             switch (categoryString.ToUpper())
             {
-                case "R":
+                case ROOKIE_ID:
                     category = new Rookie();
                     break;
-                case "A":
+                case INTERMEDIATE_ID:
                     category = new Intermediate();
                     break;
-                case "AA":
+                case ADVANCED_ID:
                     category = new DoubleA();
                     break;
-                case "AAA":
+                case OPEN_ID:
                     category = new Open();
                     break;
                 default:
                     return;
             }
+            AppEventHandler.emitCategoryUpdate(categoryString);
         }
 
-        public static void addComment(string formation, string comment)
+        public async static Task addComment(string formation, string comment)
         {
-            if(commentDictionary.ContainsKey(formation))
+            Task addCommentTask;
+            if (commentDictionary.ContainsKey(formation))
             {
-                commentDictionary[formation].Add(comment);
+                addCommentTask = Task.Run(() =>
+               {
+                   commentDictionary[formation].Add(comment);
+               });
             } else
             {
-                List<string> commentList = new List<string>();
-                commentList.Add(comment);
-                commentDictionary.Add(formation, commentList);
+                addCommentTask = Task.Run(() =>
+                {
+                    List<string> commentList = new List<string>();
+                    commentList.Add(comment);
+                    commentDictionary.Add(formation, commentList);
+                });
             }
-            FileHandler.addData(formation, comment);
-            OnDataUpdated(EventArgs.Empty);
+            await addCommentTask;
+            AppEventHandler.emitNoteUpdate(ADD_OPERATION, formation, comment);
+            AppEventHandler.emitInfoTextUpdate("Comment for formation " + formation + " added");
         }
 
-        public static void removeComment(string formation, string comment)
+        public async static Task removeComment(string formation, string comment)
         {
-            commentDictionary[formation].Remove(comment);
-            FileHandler.removeData(formation, comment);
+            await Task.Run(() =>
+            {
+                commentDictionary[formation].Remove(comment);
+            });
+            AppEventHandler.emitNoteUpdate(REMOVE_OPERATION, formation, comment);
+            AppEventHandler.emitInfoTextUpdate("Comment for formation " + formation + " removed");
+            //FileHandler.removeData(formation, comment);
+            //OnDataUpdated(EventArgs.Empty);
+        }
+
+        public async static Task<List<List<string>>> getRandomizedJumps()
+        {
+            return await Task.FromResult(category.getDraw());
         }
     }
 }
