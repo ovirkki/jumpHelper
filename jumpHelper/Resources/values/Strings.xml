@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Title">JH title!</string>
-    <string name="ApplicationName">jumpHelper</string>
+  <string name="Title">JH title!</string>
+  <string name="ApplicationName">jumpHelper</string>
+  <string name="JumpSeparator">, </string>
 </resources>

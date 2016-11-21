@@ -28,9 +28,9 @@ namespace jumpHelper
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)
         {
             View view = inflater.Inflate(Resource.Layout.JumpNotes, container, false);
-            view.FindViewById<TextView>(Resource.Id.jumpCommentsIntro).Text = "Comments for jump " + string.Join(",", jump);
+            view.FindViewById<TextView>(Resource.Id.jumpCommentsIntro).Text = "Comments for jump " + string.Join(GetString(Resource.String.JumpSeparator), jump);
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.jumpNotesListView);
-            var adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.jump, false);
+            var adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.jump, true);
             listOutput.SetAdapter(adapter);
             for (int i = 0; i < adapter.GroupCount; i++)
                 listOutput.ExpandGroup(i);

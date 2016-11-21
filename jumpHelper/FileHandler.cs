@@ -34,6 +34,7 @@ namespace jumpHelper
                 {
                     commentList.Add(comment);
                 }
+                Console.WriteLine("comments from file for form: " + formationName);
                 completeData.Add(formationName, commentList);
             }
             return completeData;

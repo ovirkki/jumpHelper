@@ -14,9 +14,11 @@ namespace jumpHelper
 {
     public class AddCommentDialogFragment : DialogFragment
     {
-        public static AddCommentDialogFragment NewInstance()
+        private static List<string> formations;
+        public static AddCommentDialogFragment NewInstance(List<string> formationsList)
         {
             AddCommentDialogFragment fragment = new AddCommentDialogFragment();
+            formations = formationsList;
             fragment.Arguments = new Bundle();
             return fragment;
         }
@@ -26,7 +28,7 @@ namespace jumpHelper
             View view = inflater.Inflate(Resource.Layout.NewCommentLayout, container, false);
 
             Spinner spinner = view.FindViewById<Spinner>(Resource.Id.formationSelectSpinner);
-            List<string> formations = FSNotesHandler.getFormationFilterList();
+            //List<string> formations = FSNotesHandler.getFormationFilterListAsync();
             var adapter = new ArrayAdapter<string>(this.Activity, Android.Resource.Layout.SimpleSpinnerItem, formations);
             spinner.Adapter = adapter;
 

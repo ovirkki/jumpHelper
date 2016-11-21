@@ -20,8 +20,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="3dp"
       android:layout_weight="1"
-      android:divider="@null"
-      android:dividerHeight="0dp"
+      android:dividerHeight="10dp"
       android:background="@color/colorBackground"
       android:drawSelectorOnTop="false" />
 </LinearLayout>

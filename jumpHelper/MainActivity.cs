@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 using Android.App;
 using Android.Widget;
@@ -89,9 +90,10 @@ namespace jumpHelper
             }
         }
 
-        private void requestNewComment()
+        private async void requestNewComment()
         {
-            AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance();
+            List<string> formations = await FSNotesHandler.getFormationFilterListAsync();
+            AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance(formations);
             startDialogFragment(commentDialog);
         }
 

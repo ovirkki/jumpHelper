@@ -29,18 +29,6 @@ public class MakeJumpsController
     {
         return category.getDraw();
     }
-
-    public string[] getJumpsArray()
-    {
-        List<List<string>> jumpList = getJumps();
-        List<string> converted = new List<string>();
-        jumpList.ForEach(delegate (List<string> formList)
-        {
-            string jump = string.Join(",", formList);
-            converted.Add(jump);
-        });
-        return converted.ToArray();
-    }
 }
 
 public class Category

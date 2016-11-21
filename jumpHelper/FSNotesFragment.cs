@@ -36,9 +36,22 @@ namespace jumpHelper
             //this.HasOptionsMenu = true;
             
             View view = inflater.Inflate(Resource.Layout.FSNotes, container, false);
-
-            initNoteList(view);
+            string[] tempArray = { "A", "B" };
+            this.filterList = new List<string>();
+            ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
+            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, false);
+            listOutput.SetAdapter(this.adapter);
+            AppEventHandler.DataUpdated += this.onDataUpdate;
+            AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
+            //initNoteList(view);
             return view;
+        }
+
+        public async override void OnResume()
+        {
+            base.OnResume();
+            await updateFilterList();
+            this.adapter.NotifyDataSetChanged();
         }
         /*
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -53,11 +66,11 @@ namespace jumpHelper
             }
         }*/
         
-        private void initNoteList(View view)
+        private async Task initNoteList(View view)
         {
-            this.filterList = FSNotesHandler.getFormationFilterList();
+            this.filterList = await FSNotesHandler.getFormationFilterListAsync();
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
-            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, true);
+            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, false);
             listOutput.SetAdapter(this.adapter);
             AppEventHandler.DataUpdated += this.onDataUpdate;
             AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
@@ -87,6 +100,7 @@ namespace jumpHelper
         private async Task updateFilterList()
         {
             List<string> filteredList = await FSNotesHandler.getFormationFilterListAsync();
+            filteredList.Add("Skills");
             this.filterList.Clear();
             this.filterList.AddRange(filteredList);
         }
@@ -96,27 +110,5 @@ namespace jumpHelper
             await updateFilterList();
             this.adapter.NotifyDataSetChanged();
         }
-        /*
-        private void requestNewComment()
-        {
-            AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance();
-            startDialogFragment(commentDialog);
-        }
-
-        public void startDialogFragment(DialogFragment dialogFragment)
-        {
-            FragmentTransaction ft = FragmentManager.BeginTransaction();
-            //Remove fragment else it will crash as it is already added to backstack
-            Fragment prev = FragmentManager.FindFragmentByTag("dialog");
-            if (prev != null)
-            {
-                ft.Remove(prev);
-            }
-            ft.AddToBackStack(null);
-            
-            //Add fragment
-            dialogFragment.Show(ft, "dialog");
-        }
-        */
     }
 }

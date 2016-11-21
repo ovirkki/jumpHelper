@@ -3035,6 +3035,9 @@ namespace jumpHelper
 			// aapt resource value: 0x7f070018
 			public const int ApplicationName = 2131165208;
 			
+			// aapt resource value: 0x7f070019
+			public const int JumpSeparator = 2131165209;
+			
 			// aapt resource value: 0x7f070017
 			public const int Title = 2131165207;
 			

@@ -66,12 +66,8 @@ namespace jumpHelper
 
         public async static Task<List<string>> getFormationFilterListAsync()
         {
-            return await Task.FromResult(category.FormationList);
-        }
-
-        public static List<string> getFormationFilterList()
-        {
-            return category.FormationList;
+            List<string> formations = await Task.FromResult(category.FormationList);
+            return formations;
         }
 
         public static void updateCategory(string categoryString)

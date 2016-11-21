@@ -36,7 +36,7 @@ namespace jumpHelper
                 List<string> converted = new List<string>();
                 jumpList.ForEach(delegate (List<string> formList)
                 {
-                    string jump = string.Join(",", formList);
+                    string jump = string.Join(GetString(Resource.String.JumpSeparator), formList);
                     converted.Add(jump);
                 });
                 return converted.ToArray();

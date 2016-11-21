@@ -83,7 +83,7 @@ namespace jumpHelper
 
         private string stringifyJump(List<string> jump)
         {
-           return string.Join(",", jump);
+           return string.Join(this.context.GetString(Resource.String.JumpSeparator), jump);
         }
     }
 }

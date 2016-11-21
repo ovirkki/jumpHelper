@@ -20,15 +20,20 @@ namespace jumpHelper
         List<string> filterList;
         FragmentActivity context;
         ExpandableListView parentView;
-        bool isDividerUsed;
+        bool isDialog;
         int groupLayoutId;
-        public FormationsWithNotesAdapter(FragmentActivity context, ExpandableListView parentView, SortedDictionary<string, List<string>> noteDictionary, List<string> filterList, bool isDividerUsed)
+        public FormationsWithNotesAdapter(
+            FragmentActivity context,
+            ExpandableListView parentView,
+            SortedDictionary<string, List<string>> noteDictionary,
+            List<string> filterList,
+            bool isDialog)
         {
             this.noteDictionary = noteDictionary;
             this.context = context;
             this.parentView = parentView;
             this.filterList = filterList;
-            this.isDividerUsed = isDividerUsed; //Shame on me using flag, maybe own group layout for dialogfragment and use layout id as constructor parameter
+            this.isDialog = isDialog; //Shame on me using flag, maybe own group layout for dialogfragment and use layout id as constructor parameter
         }
 
         private Dictionary<string, List<string>> getFilteredData()
@@ -66,19 +71,15 @@ namespace jumpHelper
             View view = convertView;
             if (view == null)
             {
-                //bool isIt = fragment.GetType() == typeof(DialogFragment);
-                //AppEventHandler.emitInfoTextUpdate("is dialogFragment: " + isIt);
-                //LayoutInflater infalInflater = (LayoutInflater)this.context.GetSystemService(Context.LayoutInflaterService);
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowMain, null);
-                
-                //view = this.context.LayoutInflater.Inflate(this.groupLayoutId, null);
             }
             //parentView.DividerHeight = 10;
             view.FindViewById<TextView>(Resource.Id.noteListHeader).Text = key;
-            if (!isDividerUsed)
+            if (isDialog)
             {
                 //Hide divider if this is dialogfragment
                 view.FindViewById<View>(Resource.Id.dividerView).Visibility = ViewStates.Gone;
+                parentView.DividerHeight = 0;
             }
             return view;
         }
@@ -111,12 +112,20 @@ namespace jumpHelper
             }
             view.FindViewById<TextView>(Resource.Id.commentField).Text = comment;
             ImageButton removeButton = view.FindViewById<ImageButton>(Resource.Id.removeComment);
-            removeButton.Click += ((sender, eventArgs) =>
+            if(isDialog)
             {
-                DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
-                startDialogFragment(dialogFrag);
-            });
-            parentView.DividerHeight = 0;
+                removeButton.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                removeButton.Click += ((sender, eventArgs) =>
+                {
+                    DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
+                    startDialogFragment(dialogFrag);
+                });
+            }
+
+            parentView.DividerHeight = 1;
             return view;
         }
         
