@@ -11,7 +11,6 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FragmentManager = Android.Support.V4.App.FragmentManager;
 
 namespace jumpHelper
 {
@@ -20,17 +19,22 @@ namespace jumpHelper
         SortedDictionary<string, List<string>> noteDictionary;
         List<string> filterList;
         FragmentActivity context;
-        public FormationsWithNotesAdapter(FragmentActivity context, SortedDictionary<string, List<string>> noteDictionary, List<string> filterList)
+        ExpandableListView parentView;
+        bool isDividerUsed;
+        int groupLayoutId;
+        public FormationsWithNotesAdapter(FragmentActivity context, ExpandableListView parentView, SortedDictionary<string, List<string>> noteDictionary, List<string> filterList, bool isDividerUsed)
         {
             this.noteDictionary = noteDictionary;
             this.context = context;
+            this.parentView = parentView;
             this.filterList = filterList;
+            this.isDividerUsed = isDividerUsed; //Shame on me using flag, maybe own group layout for dialogfragment and use layout id as constructor parameter
         }
 
         private Dictionary<string, List<string>> getFilteredData()
         {
             return this.noteDictionary
-                .Where(kvp => this.filterList.Contains<string>(kvp.Key))
+                .Where(kvp => (this.filterList.Contains<string>(kvp.Key) && kvp.Value.Count > 0))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
@@ -62,10 +66,20 @@ namespace jumpHelper
             View view = convertView;
             if (view == null)
             {
+                //bool isIt = fragment.GetType() == typeof(DialogFragment);
+                //AppEventHandler.emitInfoTextUpdate("is dialogFragment: " + isIt);
                 //LayoutInflater infalInflater = (LayoutInflater)this.context.GetSystemService(Context.LayoutInflaterService);
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowMain, null);
+                
+                //view = this.context.LayoutInflater.Inflate(this.groupLayoutId, null);
             }
+            //parentView.DividerHeight = 10;
             view.FindViewById<TextView>(Resource.Id.noteListHeader).Text = key;
+            if (!isDividerUsed)
+            {
+                //Hide divider if this is dialogfragment
+                view.FindViewById<View>(Resource.Id.dividerView).Visibility = ViewStates.Gone;
+            }
             return view;
         }
 
@@ -102,6 +116,7 @@ namespace jumpHelper
                 DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
                 startDialogFragment(dialogFrag);
             });
+            parentView.DividerHeight = 0;
             return view;
         }
         
@@ -132,6 +147,7 @@ namespace jumpHelper
         {
             return FilteredData.Keys.ToArray()[groupPosition];
         }
+
         public override void NotifyDataSetChanged()
         {
             base.NotifyDataSetChanged();

@@ -3,48 +3,42 @@ using System.Threading.Tasks;
 
 using Android.App;
 using Android.Widget;
-//using mainApp = Android.App;
 using Android.OS;
 using Android.Views;
+using v4App = Android.Support.V4.App;
 using Android.Support.V4.View;
-//using Android.Support.V4.App;
-//using v4App = Android.Support.V4.App;
 using Android.Support.Design.Widget;
 using Android.Support.V7.App;
 using v7Widget = Android.Support.V7.Widget;
-//using Android.Support.V7.Widget;
 
 namespace jumpHelper
 {
-    [Activity(Label = "jumpHelper", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "jumpHelper", MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : AppCompatActivity
     {
-        //private FSNotesHandler fsDataHandler;
-
-        /*public FSNotesHandler FSNotesHandler
-        {
-            get { return fsDataHandler; }
-        }*/
-        private bool menuIsInflated;
-        private PopupMenu catChangePopup;
-        protected override void OnCreate(Bundle bundle)
+        protected async override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
+            Task init = initializeData();
             SetContentView(Resource.Layout.Main);
-
-            AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
             AppEventHandler.NewInfoText += this.onNewInfoText;
-            FSNotesHandler.initialize();
+
+            var toolbar = FindViewById<v7Widget.Toolbar>(Resource.Id.my_toolbar);
+            SetSupportActionBar(toolbar);
+            SupportActionBar.Title = "Jump helper";
+
+            await init;
             var pager = FindViewById<ViewPager>(Resource.Id.pager);
             var tabLayout = FindViewById<TabLayout>(Resource.Id.sliding_tabs);
             var adapter = new JumpHelperPagerAdapter(SupportFragmentManager);
-            var toolbar = FindViewById<v7Widget.Toolbar>(Resource.Id.my_toolbar);
-
-            SetSupportActionBar(toolbar);
-            SupportActionBar.Title = "Jump helper";
             pager.Adapter = adapter;
             tabLayout.SetupWithViewPager(pager);
+        }
+
+        private async Task initializeData()
+        {
+            FileHandler.initialize(this.FilesDir.AbsolutePath);
+            await FSNotesHandler.initialize();
         }
 
         private async Task updateCategoryLetterAsync(IMenu menu)
@@ -64,20 +58,19 @@ namespace jumpHelper
             v7Widget.Toolbar toolbar = FindViewById<v7Widget.Toolbar>(Resource.Id.my_toolbar);
             IMenuItem item = toolbar.Menu.FindItem(Resource.Id.category);
             item.SetTitle(e.Category);
-            //await updateCategoryLetterAsync(toolbar.Menu);
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
-
             MenuInflater.Inflate(Resource.Menu.top_toolbar, menu);
-            //For some reason toolbar is refreshed with tab change so refresh also category data
+            //Reload category as 
             if (FSNotesHandler.isCategorySet())
             {
                 IMenuItem item = menu.FindItem(Resource.Id.category);
                 string catString = FSNotesHandler.CategoryName;
                 item.SetTitle(catString);
             }
+            AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
             return base.OnCreateOptionsMenu(menu);
         }
 
@@ -86,20 +79,27 @@ namespace jumpHelper
             switch (item.ItemId)
             {
                 case Resource.Id.category:
-                    //requestCategoryUpdate();
                     updateCategoryPopup();
+                    return true;
+                case Resource.Id.add_note:
+                    requestNewComment();
                     return true;
                 default:
                     return false;
             }
         }
-        /*
-        private void requestCategoryUpdate()
+
+        private void requestNewComment()
         {
-            CategoryDialogFragment categoryDialog = CategoryDialogFragment.NewInstance();
-            FragmentTransaction ft = FragmentManager.BeginTransaction();
+            AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance();
+            startDialogFragment(commentDialog);
+        }
+
+        public void startDialogFragment(v4App.DialogFragment dialogFragment)
+        {
+            v4App.FragmentTransaction ft = SupportFragmentManager.BeginTransaction();
             //Remove fragment else it will crash as it is already added to backstack
-            Fragment prev = FragmentManager.FindFragmentByTag("dialog");
+            v4App.Fragment prev = SupportFragmentManager.FindFragmentByTag("dialog");
             if (prev != null)
             {
                 ft.Remove(prev);
@@ -107,8 +107,8 @@ namespace jumpHelper
             ft.AddToBackStack(null);
 
             //Add fragment
-            categoryDialog.Show(ft, "dialog");
-        }*/
+            dialogFragment.Show(ft, "dialog");
+        }
 
         private void updateCategoryPopup()
         {
@@ -135,47 +135,9 @@ namespace jumpHelper
                     default:
                         return;
                 }
-                Console.WriteLine("{0} selected", arg1.Item.TitleFormatted);
                 FSNotesHandler.updateCategory(categoryString);
             };
         }
     }
-/*
-    public class CategoryDialogFragment : DialogFragment
-    {
-        public static CategoryDialogFragment NewInstance()
-        {
-            CategoryDialogFragment fragment = new CategoryDialogFragment();
-            fragment.Arguments = new Bundle();
-            return fragment;
-        }
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            View view = inflater.Inflate(Resource.Layout.CategoryRequestDialog, container, false);
-            RadioGroup radioGroup = view.FindViewById<RadioGroup>(Resource.Id.categories);
-            radioGroup.CheckedChange += (sender, eventArgs) => {
-                switch (eventArgs.CheckedId)
-                {
-                    case Resource.Id.rRadioBtn:
-                        FSNotesHandler.updateCategory(FSNotesHandler.ROOKIE_ID);
-                        break;
-                    case Resource.Id.aRadioBtn:
-                        FSNotesHandler.updateCategory(FSNotesHandler.INTERMEDIATE_ID);
-                        break;
-                    case Resource.Id.aaRadioBtn:
-                        FSNotesHandler.updateCategory(FSNotesHandler.ADVANCED_ID);
-                        break;
-                    case Resource.Id.aaaRadioBtn:
-                        FSNotesHandler.updateCategory(FSNotesHandler.OPEN_ID);
-                        break;
-                }
-                Dismiss();
-            };
-
-            return view;
-        }
-    }*/
-
 }
 

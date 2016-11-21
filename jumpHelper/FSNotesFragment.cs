@@ -33,14 +33,14 @@ namespace jumpHelper
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle bundle)
         {
-            this.HasOptionsMenu = true;
+            //this.HasOptionsMenu = true;
             
             View view = inflater.Inflate(Resource.Layout.FSNotes, container, false);
 
             initNoteList(view);
             return view;
         }
-
+        /*
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -51,13 +51,13 @@ namespace jumpHelper
                 default:
                     return true;
             }
-        }
-
+        }*/
+        
         private void initNoteList(View view)
         {
             this.filterList = FSNotesHandler.getFormationFilterList();
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
-            this.adapter = new FormationsWithNotesAdapter(this.Activity, FSNotesHandler.Notes, this.filterList);
+            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, true);
             listOutput.SetAdapter(this.adapter);
             AppEventHandler.DataUpdated += this.onDataUpdate;
             AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
@@ -96,7 +96,7 @@ namespace jumpHelper
             await updateFilterList();
             this.adapter.NotifyDataSetChanged();
         }
-
+        /*
         private void requestNewComment()
         {
             AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance();
@@ -117,5 +117,6 @@ namespace jumpHelper
             //Add fragment
             dialogFragment.Show(ft, "dialog");
         }
+        */
     }
 }

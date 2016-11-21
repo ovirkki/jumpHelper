@@ -23,8 +23,8 @@ namespace jumpHelper
         public const string ADD_OPERATION = "ADD";
         public const string REMOVE_OPERATION = "REMOVE";
 
-        private static SortedDictionary<string, List<string>> commentDictionary
-            = new SortedDictionary<string, List<string>>(FileHandler.getCompleteDataAsDictionary());
+        private static SortedDictionary<string, List<string>> commentDictionary;
+            //= new SortedDictionary<string, List<string>>(FileHandler.getCompleteDataAsDictionary());
         private static Category category;
 
         public static SortedDictionary<string, List<string>> Notes
@@ -42,28 +42,20 @@ namespace jumpHelper
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 
-        public static void initialize()
+        public static async Task initialize()
         {
-            category = new Rookie();
+            category = new Intermediate();
+            //updateCategory(INTERMEDIATE_ID);
+            commentDictionary = new SortedDictionary<string, List<string>>(await FileHandler.getCompleteDataAsDictionary(), new FormationSorter());
         }
-        /*
-        public async static Task<string> CategoryName
-        {
-            get {
-                //Task<string> returnValue = new Task<string>(category.ShortName);
-                return await category.ShortName;
-            }
-        }*/
 
         public async static Task<string> getCategoryName()
         {
-            //return category.ShortName;
             return await category.getShortName();
         }
 
         public static string CategoryName
         {
-            //return category.ShortName;
             get { return category.ShortName; }
         }
 
@@ -84,7 +76,7 @@ namespace jumpHelper
 
         public static void updateCategory(string categoryString)
         {
-            switch (categoryString.ToUpper())
+            switch (categoryString)
             {
                 case ROOKIE_ID:
                     category = new Rookie();
@@ -135,8 +127,6 @@ namespace jumpHelper
             });
             AppEventHandler.emitNoteUpdate(REMOVE_OPERATION, formation, comment);
             AppEventHandler.emitInfoTextUpdate("Comment for formation " + formation + " removed");
-            //FileHandler.removeData(formation, comment);
-            //OnDataUpdated(EventArgs.Empty);
         }
 
         public async static Task<List<List<string>>> getRandomizedJumps()

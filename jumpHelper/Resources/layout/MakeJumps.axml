@@ -6,18 +6,16 @@
     android:minWidth="25px"
     android:minHeight="25px">
     <Button
-        android:text="Make jumps"
-        android:layout_width="match_parent"
+        android:text="Randomize jumps"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimary"
         android:id="@+id/makeJumpsBtn"
-        android:layout_marginBottom="0.0dp" />
+        android:layout_margin="10dp" />
     <ListView
         android:id="@+id/jumpList"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/jumpOutput" />
 </LinearLayout>

@@ -1,0 +1,22 @@
+﻿- add comment dialogiin
+	/- nappulat nätisti
+	- save nappi disabled kunnes tekstikenttään kirjoitetaan 
+/- poista group näkyvistä, jos viimeinen kommentti poistetaan
+- mieti vaihtoehtoa flagin lähettämisen sijaan formwithnotesadapteriin
+- lisää asynkka alun latailuun?
+- suorituskykyasiat
+/- hypyistä kommentit
+/- jos ei kommentteja, niin älä näytä mitään
+- järjestys, rantsut eka sitten numerojärjestyksessä (ei 19 ennen 2:sta jne.)
+
+- delete-nappi pois hyppykommenteista
+- google drive backup
+- settings
+	- auto save
+	- sync with drive
+- permissions kysely: https://blog.xamarin.com/requesting-runtime-permissions-in-android-marshmallow/
+- ulkoasu:
+	- categoryn valinta nätiksi
+	- spinner nätimmäksi
+- tagitys (esim. pyörimistag menee blokkeihin 7, 14, 15 jne.)
+- aikaleima ja filtteröinti sen mukaan, esim. näytä vain viimeisen kuukauden ajalta

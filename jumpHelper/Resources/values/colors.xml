@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="whitesemitrasparent">#88FFFFFF</color>
+  <color name="colorPrimary">@color/lightseagreen</color>
+  <color name="colorPrimaryDark">@color/teal</color>
+  <color name="colorAccent">@color/teal</color>
+  <color name="colorPrimaryLight">@color/lightcyan</color>
+  <color name="colorPrimarySemi">@color/lightseagreensemitrasparent</color>
+  <color name="colorBackground">@color/lightcyan</color>
+  <color name="transparent">#00FFFFFF</color>
+  <color name="whitesemitransparent">#88FFFFFF</color>
+  <color name="lightseagreensemitrasparent">#8820B2AA</color>
   <color name="white">#FFFFFF</color>
   <color name="ivory">#FFFFF0</color>
   <color name="lightyellow">#FFFFE0</color>

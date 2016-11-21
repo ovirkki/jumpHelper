@@ -16,13 +16,13 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>True</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -31,10 +31,18 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>False</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
-    <DebugSymbols>true</DebugSymbols>
+    <DebugSymbols>False</DebugSymbols>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -43,6 +51,14 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <BundleAssemblies>False</BundleAssemblies>
+    <AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+    <Debugger>Xamarin</Debugger>
+    <AotAssemblies>False</AotAssemblies>
+    <EnableLLVM>False</EnableLLVM>
+    <AndroidEnableMultiDex>False</AndroidEnableMultiDex>
+    <EnableProguard>False</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -83,12 +99,14 @@
     <Compile Include="DeleteConfirmationDialog.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Formations.cs" />
+    <Compile Include="FormationSorter.cs" />
     <Compile Include="FormationsWithNotesAdapter.cs" />
     <Compile Include="FSNotesFragment.cs" />
     <Compile Include="FSNotesHandler.cs" />
+    <Compile Include="JumpCommentsFragment.cs" />
     <Compile Include="jumpHelperFragment.cs" />
     <Compile Include="JumpHelperPagerAdapter.cs" />
-    <Compile Include="JumpListAdapter.cs" />
+    <Compile Include="JumpListViewAdapter.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MakeJumpsFragment.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -118,6 +136,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CategoryRequestDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\JumpRow.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\JumpNotes.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -225,6 +249,25 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\ic_delete_white_18dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_menu_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_menu_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_menu_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_menu_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_description_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_description_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_description_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_description_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_description_white_18dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_description_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_description_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_description_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_description_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_description_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable\testRect.xml" />
+    <Content Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Vector.Drawable.23.4.0.1\build\Xamarin.Android.Support.Vector.Drawable.targets')" />

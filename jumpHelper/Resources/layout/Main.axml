@@ -11,12 +11,13 @@
   <android.support.design.widget.TabLayout
       android:id="@+id/sliding_tabs"
       style="@style/AppTabLayout"
-      android:background="?attr/colorPrimary"
+      android:background="@color/colorPrimary"
       app:tabTextAppearance="@style/AppTabTextAppearance"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:tabMaxWidth="0dp"
       app:tabGravity="fill"
+      android:elevation="2dp"
       app:tabMode="fixed">
     <android.support.design.widget.TabItem
         android:text="FS notes"/>
@@ -29,6 +30,6 @@
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_weight="1"
-       android:background="@color/lightcyan" />
+       android:background="@color/colorBackground" />
 
 </LinearLayout>

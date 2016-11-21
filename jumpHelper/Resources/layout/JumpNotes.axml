@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:padding="10dp">
+  <TextView
+    android:id="@+id/jumpCommentsIntro"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textSize="18dp"
+    android:textStyle="bold"
+    android:textColor="@color/colorPrimaryDark"
+    />
+  <ExpandableListView
+      android:id="@+id/jumpNotesListView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="3dp"
+      android:layout_weight="1"
+      android:divider="@null"
+      android:dividerHeight="0dp"
+      android:background="@color/colorBackground"
+      android:drawSelectorOnTop="false" />
+</LinearLayout>

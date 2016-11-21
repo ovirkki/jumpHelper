@@ -15,9 +15,11 @@ using Android.App;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: Application(Debuggable = true,
-                        Label = "My App",
-                        Theme = "@style/AppTheme")]
+#if DEBUG
+[assembly: Application(Debuggable = true, Label = "My App", Theme = "@style/AppTheme")]
+#else
+[assembly: Application(Debuggable = false, Label = "My App", Theme = "@style/AppTheme")]
+#endif
 
 // Version information for an assembly consists of the following four values:
 //
