@@ -2254,37 +2254,40 @@ namespace jumpHelper
 			public const int design_snackbar_background = 2130837580;
 			
 			// aapt resource value: 0x7f02004d
-			public const int ic_delete_black_24dp = 2130837581;
+			public const int ic_av_timer_white_24dp = 2130837581;
 			
 			// aapt resource value: 0x7f02004e
-			public const int ic_delete_white_18dp = 2130837582;
+			public const int ic_delete_black_24dp = 2130837582;
 			
 			// aapt resource value: 0x7f02004f
-			public const int ic_delete_white_24dp = 2130837583;
+			public const int ic_delete_white_18dp = 2130837583;
 			
 			// aapt resource value: 0x7f020050
-			public const int ic_description_white_18dp = 2130837584;
+			public const int ic_delete_white_24dp = 2130837584;
 			
 			// aapt resource value: 0x7f020051
-			public const int ic_description_white_24dp = 2130837585;
+			public const int ic_description_white_18dp = 2130837585;
 			
 			// aapt resource value: 0x7f020052
-			public const int ic_menu_white_18dp = 2130837586;
+			public const int ic_description_white_24dp = 2130837586;
 			
 			// aapt resource value: 0x7f020053
-			public const int ic_note_add_white_24dp = 2130837587;
+			public const int ic_menu_white_18dp = 2130837587;
 			
 			// aapt resource value: 0x7f020054
-			public const int ic_save_white_24dp = 2130837588;
+			public const int ic_note_add_white_24dp = 2130837588;
 			
 			// aapt resource value: 0x7f020055
-			public const int Icon = 2130837589;
-			
-			// aapt resource value: 0x7f020057
-			public const int notification_template_icon_bg = 2130837591;
+			public const int ic_save_white_24dp = 2130837589;
 			
 			// aapt resource value: 0x7f020056
-			public const int testRect = 2130837590;
+			public const int Icon = 2130837590;
+			
+			// aapt resource value: 0x7f020058
+			public const int notification_template_icon_bg = 2130837592;
+			
+			// aapt resource value: 0x7f020057
+			public const int testRect = 2130837591;
 			
 			static Drawable()
 			{
@@ -2304,6 +2307,9 @@ namespace jumpHelper
 			
 			// aapt resource value: 0x7f060086
 			public const int SaveButton = 2131099782;
+			
+			// aapt resource value: 0x7f06009a
+			public const int TimerStartButton = 2131099802;
 			
 			// aapt resource value: 0x7f06006c
 			public const int aRadioBtn = 2131099756;
@@ -2362,11 +2368,11 @@ namespace jumpHelper
 			// aapt resource value: 0x7f06003d
 			public const int activity_chooser_view_content = 2131099709;
 			
-			// aapt resource value: 0x7f06009c
-			public const int add_note = 2131099804;
+			// aapt resource value: 0x7f06009f
+			public const int add_note = 2131099807;
 			
-			// aapt resource value: 0x7f06009a
-			public const int advanced = 2131099802;
+			// aapt resource value: 0x7f06009d
+			public const int advanced = 2131099805;
 			
 			// aapt resource value: 0x7f060049
 			public const int alertTitle = 2131099721;
@@ -2389,8 +2395,8 @@ namespace jumpHelper
 			// aapt resource value: 0x7f06006a
 			public const int categories = 2131099754;
 			
-			// aapt resource value: 0x7f06009d
-			public const int category = 2131099805;
+			// aapt resource value: 0x7f0600a1
+			public const int category = 2131099809;
 			
 			// aapt resource value: 0x7f06002b
 			public const int center = 2131099691;
@@ -2512,8 +2518,8 @@ namespace jumpHelper
 			// aapt resource value: 0x7f060096
 			public const int info = 2131099798;
 			
-			// aapt resource value: 0x7f060099
-			public const int intermediate = 2131099801;
+			// aapt resource value: 0x7f06009c
+			public const int intermediate = 2131099804;
 			
 			// aapt resource value: 0x7f060000
 			public const int item_touch_helper_previous_elevation = 2131099648;
@@ -2551,8 +2557,8 @@ namespace jumpHelper
 			// aapt resource value: 0x7f06008e
 			public const int media_actions = 2131099790;
 			
-			// aapt resource value: 0x7f06009e
-			public const int menu_settings = 2131099806;
+			// aapt resource value: 0x7f0600a2
+			public const int menu_settings = 2131099810;
 			
 			// aapt resource value: 0x7f06001d
 			public const int middle = 2131099677;
@@ -2587,8 +2593,8 @@ namespace jumpHelper
 			// aapt resource value: 0x7f060078
 			public const int notesListView = 2131099768;
 			
-			// aapt resource value: 0x7f06009b
-			public const int open = 2131099803;
+			// aapt resource value: 0x7f06009e
+			public const int open = 2131099806;
 			
 			// aapt resource value: 0x7f06007f
 			public const int pager = 2131099775;
@@ -2620,8 +2626,8 @@ namespace jumpHelper
 			// aapt resource value: 0x7f060030
 			public const int right = 2131099696;
 			
-			// aapt resource value: 0x7f060098
-			public const int rookie = 2131099800;
+			// aapt resource value: 0x7f06009b
+			public const int rookie = 2131099803;
 			
 			// aapt resource value: 0x7f060017
 			public const int screen = 2131099671;
@@ -2719,6 +2725,9 @@ namespace jumpHelper
 			// aapt resource value: 0x7f060031
 			public const int start = 2131099697;
 			
+			// aapt resource value: 0x7f0600a0
+			public const int start_timer = 2131099808;
+			
 			// aapt resource value: 0x7f06008d
 			public const int status_bar_latest_event_content = 2131099789;
 			
@@ -2745,6 +2754,12 @@ namespace jumpHelper
 			
 			// aapt resource value: 0x7f060091
 			public const int time = 2131099793;
+			
+			// aapt resource value: 0x7f060099
+			public const int timeLeft = 2131099801;
+			
+			// aapt resource value: 0x7f060098
+			public const int timerTitle = 2131099800;
 			
 			// aapt resource value: 0x7f060043
 			public const int title = 2131099715;
@@ -2998,7 +3013,10 @@ namespace jumpHelper
 			public const int support_simple_spinner_dropdown_item = 2130903097;
 			
 			// aapt resource value: 0x7f03003a
-			public const int toolbar = 2130903098;
+			public const int TimerDialog = 2130903098;
+			
+			// aapt resource value: 0x7f03003b
+			public const int toolbar = 2130903099;
 			
 			static Layout()
 			{

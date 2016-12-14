@@ -7,6 +7,11 @@
      app:showAsAction="ifRoom"
      android:title="Add note" />
   <item
+     android:id="@+id/start_timer"
+     android:icon="@drawable/ic_av_timer_white_24dp"
+     app:showAsAction="ifRoom"
+     android:title="Start timer" />
+  <item
     android:id="@+id/category"
     app:showAsAction="always" />
   <item

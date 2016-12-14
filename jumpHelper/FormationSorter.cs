@@ -22,7 +22,7 @@ namespace jumpHelper
             }
             else if (isBlock(a) && isBlock(b))
             {
-                return Math.Max(Int32.Parse(a), Int32.Parse(b));
+                return Int32.Parse(a).CompareTo(Int32.Parse(b));
             }
             else if (isBlock(a) && !isBlock(b))
             {

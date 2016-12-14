@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+  <TextView
+      android:text="Jump clock"
+      android:gravity="center"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/colorPrimaryDark"
+      android:id="@+id/timerTitle" />  
+  <TextView
+      android:text="35"
+      android:padding="5dp"
+      android:gravity="center"
+      android:textAppearance="?android:attr/textAppearanceLarge"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:textColor="@color/colorPrimaryDark"
+      android:layout_below="@+id/timerTitle"
+      android:id="@+id/timeLeft" />
+  <Button
+      android:text="Cancel"
+      android:theme="@style/PrimaryFlatButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/CancelButton"
+      android:layout_below="@+id/timeLeft"
+      android:layout_marginTop="10dp" />
+  <Button
+      android:text="Start"
+      android:theme="@style/PrimaryFlatButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@+id/CancelButton"
+      android:layout_alignParentRight="true"
+      android:id="@+id/TimerStartButton" />
+</RelativeLayout>
