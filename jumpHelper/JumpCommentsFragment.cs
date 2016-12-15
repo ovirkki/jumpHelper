@@ -15,9 +15,11 @@ namespace jumpHelper
     public class JumpCommentsFragment : DialogFragment
     {
         private List<string> jump;
-        public JumpCommentsFragment(List<string> jump)
+        private Context context;
+        public JumpCommentsFragment(List<string> jump, Context context)
         {
             this.jump = jump;
+            this.context = context;
         }
 
         public override void OnCreate(Bundle bundle)
@@ -34,6 +36,28 @@ namespace jumpHelper
             listOutput.SetAdapter(adapter);
             for (int i = 0; i < adapter.GroupCount; i++)
                 listOutput.ExpandGroup(i);
+            TextView timeLeftField = view.FindViewById<TextView>(Resource.Id.jumpTimeLeft);
+            
+            Button jumpTimerOperButton = view.FindViewById<Button>(Resource.Id.jumpTimerOperButton);
+            var timer = new JumpTimer(timeLeftField, context);
+            timeLeftField.Text = timer.formatRemainingTime(FSNotesHandler.JUMPTIME_MS / 1000);
+            bool isStarted = false;
+            //muuta nappi taustaltaa v‰rikk‰‰skis!!!!
+            jumpTimerOperButton.Click += delegate
+            {
+                if (isStarted)
+                {
+                    timer.Cancel();
+                    jumpTimerOperButton.Text = "Start timer";
+                    timer.initTime();
+                }
+                else
+                {
+                    timer.Start();
+                    jumpTimerOperButton.Text = "Stop timer";
+                }
+                isStarted = !isStarted;
+            };
             return view;
         }
     }

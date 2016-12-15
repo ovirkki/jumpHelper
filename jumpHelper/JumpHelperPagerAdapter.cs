@@ -21,8 +21,8 @@ namespace jumpHelper
 
         public JumpHelperPagerAdapter(FragmentManager manager) : base(manager)
         {
-            fragmentList.Add(new FSNotesFragment("FS notes"));
-            fragmentList.Add(new MakeJumpsFragment("MakeJumps"));
+            fragmentList.Add(new FSNotesFragment("FS NOTES"));
+            fragmentList.Add(new MakeJumpsFragment("JUMPS"));
             //FSNotesHandler.initialize();
         }
 

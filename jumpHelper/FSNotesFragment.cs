@@ -100,7 +100,7 @@ namespace jumpHelper
         private async Task updateFilterList()
         {
             List<string> filteredList = await FSNotesHandler.getFormationFilterListAsync();
-            filteredList.Add("Skills");
+            //filteredList.Add("Skills");
             this.filterList.Clear();
             this.filterList.AddRange(filteredList);
         }

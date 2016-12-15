@@ -278,6 +278,16 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_av_timer_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_av_timer_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_av_timer_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_stop_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_play_arrow_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_stop_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_play_arrow_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_stop_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_play_arrow_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_stop_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_play_arrow_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_stop_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_play_arrow_white_24dp.png" />
     <Content Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

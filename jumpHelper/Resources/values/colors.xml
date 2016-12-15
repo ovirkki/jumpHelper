@@ -9,6 +9,7 @@
   <color name="transparent">#00FFFFFF</color>
   <color name="whitesemitransparent">#88FFFFFF</color>
   <color name="lightseagreensemitrasparent">#8820B2AA</color>
+  <color name="coloredButtonColor">@color/teal</color>
   <color name="white">#FFFFFF</color>
   <color name="ivory">#FFFFF0</color>
   <color name="lightyellow">#FFFFE0</color>

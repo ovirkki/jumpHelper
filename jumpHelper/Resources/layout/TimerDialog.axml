@@ -12,7 +12,6 @@
       android:textColor="@color/colorPrimaryDark"
       android:id="@+id/timerTitle" />  
   <TextView
-      android:text="35"
       android:padding="5dp"
       android:gravity="center"
       android:textAppearance="?android:attr/textAppearanceLarge"
@@ -23,6 +22,7 @@
       android:id="@+id/timeLeft" />
   <Button
       android:text="Cancel"
+      android:textColor="@color/colorPrimaryDark"
       android:theme="@style/PrimaryFlatButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -31,6 +31,7 @@
       android:layout_marginTop="10dp" />
   <Button
       android:text="Start"
+      android:textColor="@color/colorPrimaryDark"
       android:theme="@style/PrimaryFlatButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

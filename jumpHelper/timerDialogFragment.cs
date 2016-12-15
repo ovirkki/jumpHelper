@@ -15,7 +15,6 @@ namespace jumpHelper
 {
     public class TimerDialogFragment : DialogFragment
     {
-        private const int TIME_MS = 35000;
         private static Context context;
         public static TimerDialogFragment NewInstance(Context actContext)
         {
@@ -32,10 +31,22 @@ namespace jumpHelper
             TextView timeLeftField = view.FindViewById<TextView>(Resource.Id.timeLeft);
             Button startButton = view.FindViewById<Button>(Resource.Id.TimerStartButton);
             Button cancelButton = view.FindViewById<Button>(Resource.Id.CancelButton);
-            var timer = new JumpTimer(TIME_MS, 1000, timeLeftField, context);
+            var timer = new JumpTimer(timeLeftField, context);
+            bool isStarted = false;
             startButton.Click += delegate
             {
-                timer.Start();
+                if (isStarted)
+                {
+                    timer.Cancel();
+                    startButton.Text = "Start";
+                    timer.initTime();
+                }
+                else
+                {
+                    timer.Start();
+                    startButton.Text = "Reset";
+                }
+                isStarted = !isStarted;
             };
             cancelButton.Click += delegate {
                 timer.Cancel();

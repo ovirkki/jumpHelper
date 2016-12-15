@@ -5,17 +5,19 @@
     android:layout_height="match_parent"
     android:minWidth="25px"
     android:minHeight="25px">
-    <Button
-        android:text="Randomize jumps"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:background="@color/colorPrimary"
-        android:id="@+id/makeJumpsBtn"
-        android:layout_margin="10dp" />
-    <ListView
-        android:id="@+id/jumpList"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+  <Button
+      android:theme="@style/AppTheme.ColoredButton"
+      android:text="Randomize jump"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:textSize="20dp"
+      android:id="@+id/makeJumpsBtn"
+      android:layout_margin="10dp" />
+  <ListView
+      android:id="@+id/jumpList"
+      android:layout_margin="10dp"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:divider="@null"
+      android:dividerHeight="5dp"/>
 </LinearLayout>

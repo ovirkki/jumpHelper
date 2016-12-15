@@ -1,39 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
-public class MakeJumpsController
-{
-    public Category category { get; set; }
-    public MakeJumpsController(string category)
-    {
-        switch(category)
-        {
-            case "R":
-                this.category = new Rookie();
-                break;
-            case "A":
-                this.category = new Intermediate();
-                break;
-            case "AA":
-                this.category = new DoubleA();
-                break;
-            case "AAA":
-                this.category = new Open();
-                break;
-            default:
-                this.category  = new Rookie();
-                break;
-        }
-    }
-    public List<List<string>> getJumps()
-    {
-        return category.getDraw();
-    }
-}
+using System;
 
 public class Category
 {
-    //protected string[] formations;
     protected List<string> formationsList;
     protected string name, shortName;
     protected string[] randoms = {"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q"};
@@ -45,7 +15,6 @@ public class Category
 
     public Category()
     {
-        //this.formations = new Formations(this.formationsList, this.minPointPerJump, 0);
     }
 
     public string getName() {
@@ -69,6 +38,7 @@ public class Category
 
     public List<List<string>> getDraw()
     {
+        List<List<string>> draw = Formations.generateJumps(this.formationsList, rounds, this.minPointPerJump);
         return Formations.generateJumps(this.formationsList, rounds, this.minPointPerJump);
     }
 }
@@ -82,7 +52,6 @@ public class Rookie : Category
         this.minPointPerJump = 3;
         this.rounds = 10;
         this.formationsList = new List<string>(randoms);
-        //this.formations = new Formations(this.formations);
     }
 }
 

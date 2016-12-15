@@ -17,14 +17,17 @@ namespace jumpHelper
     {
         private TextView inputField;
         private Context context;
-        public JumpTimer(int totalTime, int interval, TextView inputField, Context context) : base(totalTime, interval)
+        private const int INIT_TIME_MS = 35000;
+        private const int INTERVAL = 1000;
+        public JumpTimer(TextView inputField, Context context) : base(INIT_TIME_MS, INTERVAL)
         {
             this.inputField = inputField;
             this.context = context;
+            initTime();
         }
         public override void OnTick(long millisUntilFinished)
         {
-            inputField.Text = (int)millisUntilFinished / 1000 + "";
+            inputField.Text = formatRemainingTime((int)millisUntilFinished / 1000);
         }
 
         public override void OnFinish()
@@ -33,6 +36,14 @@ namespace jumpHelper
             Android.Net.Uri notificationUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
             Ringtone tone = RingtoneManager.GetRingtone(context, notificationUri);
             tone.Play();
+        }
+        public string formatRemainingTime(int remainingTimeSecs)
+        {
+            return "0:" + remainingTimeSecs;
+        }
+        public void initTime()
+        {
+            this.inputField.Text = formatRemainingTime((int)INIT_TIME_MS / 1000);
         }
     }
 }

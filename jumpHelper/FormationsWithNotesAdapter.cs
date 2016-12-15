@@ -39,7 +39,7 @@ namespace jumpHelper
         private Dictionary<string, List<string>> getFilteredData()
         {
             return this.noteDictionary
-                .Where(kvp => (this.filterList.Contains<string>(kvp.Key) && kvp.Value.Count > 0))
+                .Where(kvp => ((this.filterList.Contains<string>(kvp.Key)  || kvp.Key == "Skills") && kvp.Value.Count > 0))
                 .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
         }
 

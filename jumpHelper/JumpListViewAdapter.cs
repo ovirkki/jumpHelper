@@ -66,7 +66,7 @@ namespace jumpHelper
                 showCommentsButton.Enabled = true;
                 showCommentsButton.Click += ((sender, eventArgs) =>
                 {
-                    JumpCommentsFragment fragment = new JumpCommentsFragment(jump);
+                    JumpCommentsFragment fragment = new JumpCommentsFragment(jump, this.context);
                     var ft = context.SupportFragmentManager.BeginTransaction();
                     ft.SetTransition(FragmentTransaction.TransitFragmentFade);
                     Fragment prev = context.SupportFragmentManager.FindFragmentByTag("comments");

@@ -23,6 +23,8 @@ namespace jumpHelper
         public const string ADD_OPERATION = "ADD";
         public const string REMOVE_OPERATION = "REMOVE";
 
+        public const int JUMPTIME_MS = 35000;
+
         private static SortedDictionary<string, List<string>> commentDictionary;
             //= new SortedDictionary<string, List<string>>(FileHandler.getCompleteDataAsDictionary());
         private static Category category;
@@ -66,7 +68,10 @@ namespace jumpHelper
 
         public async static Task<List<string>> getFormationFilterListAsync()
         {
-            List<string> formations = await Task.FromResult(category.FormationList);
+            List<string> formations = new List<string>();
+            formations.Add("Skills");
+            List<string> formationList = await Task.FromResult(category.FormationList);
+            formations.AddRange(formationList);
             return formations;
         }
 
