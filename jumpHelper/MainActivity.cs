@@ -15,7 +15,7 @@ using v7Widget = Android.Support.V7.Widget;
 namespace jumpHelper
 {
     [Activity(Label = "jumpHelper", MainLauncher = true, Icon = "@drawable/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class MainActivity : AppCompatActivity
+    public class MainActivity : AppCompatActivity, ActivityCallBackListener
     {
         protected async override void OnCreate(Bundle bundle)
         {
@@ -117,8 +117,7 @@ namespace jumpHelper
                 ft.Remove(prev);
             }
             ft.AddToBackStack(null);
-
-            //Add fragment
+            
             dialogFragment.Show(ft, "dialog");
         }
 

@@ -94,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActivityCallBackListener.cs" />
     <Compile Include="AddCommentDialog.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="AppEventHandler.cs" />
@@ -288,6 +289,11 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_play_arrow_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_stop_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_play_arrow_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_white_24dp.png" />
     <Content Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

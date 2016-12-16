@@ -32,14 +32,22 @@ namespace jumpHelper
 
         public override void OnFinish()
         {
-            inputField.Text = "0";
+            inputField.Text = "0:00";
             Android.Net.Uri notificationUri = RingtoneManager.GetDefaultUri(RingtoneType.Notification);
             Ringtone tone = RingtoneManager.GetRingtone(context, notificationUri);
             tone.Play();
         }
         public string formatRemainingTime(int remainingTimeSecs)
         {
-            return "0:" + remainingTimeSecs;
+            string prefix;
+            if(remainingTimeSecs < 10)
+            {
+                prefix = "0:0";
+            } else
+            {
+                prefix = "0:";
+            }
+            return prefix + remainingTimeSecs;
         }
         public void initTime()
         {

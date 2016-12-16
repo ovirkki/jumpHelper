@@ -19,7 +19,7 @@
 	- categoryn valinta nätiksi
 	- spinner nätimmäksi
 	- floating button kommentin lisäämiseen
-	- +-nappi main row:lle
+	- +-nappi main row:lle //tarvii säätämistä, koska laajennus ei toimi suoraan, jos lisää napin riville
 	- Sorttaa Skills vikaksi
 	- jump komments, posta comments for jump
 

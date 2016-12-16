@@ -24,6 +24,7 @@ namespace jumpHelper
         string title;
         FormationsWithNotesAdapter adapter;
         List<string> filterList;
+        private ActivityCallBackListener listener;
 
         public FSNotesFragment(string title) : base(title)
         {
@@ -43,8 +44,29 @@ namespace jumpHelper
             listOutput.SetAdapter(this.adapter);
             AppEventHandler.DataUpdated += this.onDataUpdate;
             AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
+            FloatingActionButton addNoteFab = view.FindViewById<FloatingActionButton>(Resource.Id.addNoteFab);
+            //Floating action button
+            addNoteFab.Click += async (object sender, EventArgs e) =>
+            {
+                AppEventHandler.emitInfoTextUpdate("add note pressed");
+                await requestNewComment();
+            };
             //initNoteList(view);
             return view;
+        }
+
+        public override void OnAttach(Context context)
+        {
+            base.OnAttach(context);
+            listener = (ActivityCallBackListener)context;
+        }
+
+        private async Task requestNewComment()
+        {
+            List<string> formations = await FSNotesHandler.getFormationFilterListAsync();
+            formations.Sort(new FormationSorter());
+            AddCommentDialogFragment commentDialog = AddCommentDialogFragment.NewInstance(formations);
+            listener.startDialogFragment(commentDialog);
         }
 
         public async override void OnResume()
