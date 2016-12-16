@@ -11,8 +11,6 @@
     android:textAppearance="?android:attr/textAppearanceLarge"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:textStyle="bold"
-    android:textColor="@color/colorPrimaryDark"
     />
   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
@@ -25,12 +23,11 @@
       android:textAppearance="?android:attr/textAppearanceLarge"
       android:layout_width="wrap_content"
       android:layout_height="match_parent"
-      android:textColor="@color/colorPrimaryDark"
       android:layout_marginRight="10dp"
     />
     <Button
       android:text="Start timer"
-      android:theme="@style/PrimaryFlatButton"
+      android:theme="@style/AppTheme.ColoredButton"
       android:layout_gravity="right"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -42,7 +39,6 @@
       android:layout_height="wrap_content"
       android:layout_margin="3dp"
       android:layout_weight="1"
-      android:dividerHeight="10dp"
       android:background="@color/colorBackground"
       android:drawSelectorOnTop="false" />
 </LinearLayout>

@@ -73,14 +73,7 @@ namespace jumpHelper
             {
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowMain, null);
             }
-            //parentView.DividerHeight = 10;
             view.FindViewById<TextView>(Resource.Id.noteListHeader).Text = key;
-            if (isDialog)
-            {
-                //Hide divider if this is dialogfragment
-                view.FindViewById<View>(Resource.Id.dividerView).Visibility = ViewStates.Gone;
-                parentView.DividerHeight = 0;
-            }
             return view;
         }
 
@@ -107,7 +100,6 @@ namespace jumpHelper
             View view = convertView;
             if (view == null)
             {
-                //LayoutInflater infalInflater = (LayoutInflater)this.context.GetSystemService(Context.LayoutInflaterService);
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowComments, null);
             }
             view.FindViewById<TextView>(Resource.Id.commentField).Text = comment;
@@ -124,8 +116,6 @@ namespace jumpHelper
                     startDialogFragment(dialogFrag);
                 });
             }
-
-            parentView.DividerHeight = 1;
             return view;
         }
         

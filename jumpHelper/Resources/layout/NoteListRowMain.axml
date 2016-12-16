@@ -3,28 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/transparent"
-    android:elevation="2dp"
-    android:layout_marginTop="6dp"
-    android:layout_marginLeft="16dp">
-  <View
-    android:id="@+id/dividerView"
-    android:layout_height="5dp"
-    android:layout_width="match_parent"
-    android:background="@color/transparent"/>
+    android:background="@color/transparent">
   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:elevation="2dp"
     android:background="@color/white">
-      <TextView
-          android:id="@+id/noteListHeader"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-          android:textSize="24dp"
-          android:textStyle="bold"
-          android:textColor="@color/colorPrimaryDark" />
+    <TextView
+        android:id="@+id/noteListHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:textSize="24dp"
+        android:textStyle="bold" />
   </LinearLayout>
 </LinearLayout>

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:elevation="2dp"
     android:background="@color/white">
   <TextView
       android:layout_width="wrap_content"
@@ -13,12 +12,10 @@
       android:layout_toLeftOf="@+id/removeComment"
       android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"/>
   <ImageButton
+      style="@style/AppTheme.ImageButton"
       android:src="@drawable/ic_delete_white_24dp"
-      android:layout_height="wrap_content"
-      android:layout_width="wrap_content"
       android:layout_margin="4px"
       android:layout_alignParentRight="true"
       android:layout_centerVertical="true"
-      android:id="@+id/removeComment"
-      android:background="@color/colorPrimary"/>
+      android:id="@+id/removeComment"/>
 </RelativeLayout>
