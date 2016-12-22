@@ -94,31 +94,69 @@ namespace jumpHelper
 
         public override View GetChildView(int groupPosition, int childPosition, bool isLastChild, View convertView, ViewGroup parent)
         {
+            CommentRowHolder holder = null;
             string formation = getKey(groupPosition);
             string comment = FilteredData[formation][childPosition];
 
             View view = convertView;
-            if (view == null)
+            if (view != null)
             {
+                holder = view.Tag as CommentRowHolder;
+            }
+
+            if (holder == null)
+            {
+                holder = new CommentRowHolder();
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowComments, null);
-            }
-            view.FindViewById<TextView>(Resource.Id.commentField).Text = comment;
-            ImageButton removeButton = view.FindViewById<ImageButton>(Resource.Id.removeComment);
-            if(isDialog)
-            {
-                removeButton.Visibility = ViewStates.Gone;
-            }
-            else
-            {
-                removeButton.Click += ((sender, eventArgs) =>
+                holder.commentView = view.FindViewById<TextView>(Resource.Id.commentField);
+                holder.removeButton = view.FindViewById<ImageButton>(Resource.Id.removeComment);
+                if (isDialog)
                 {
-                    DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
-                    startDialogFragment(dialogFrag);
-                });
+                    holder.removeButton.Visibility = ViewStates.Gone;
+                }
+                else
+                {
+                    holder.removeButton.Click += handleCommentRemoveClick;
+                }
+                view.Tag = holder;
             }
+            holder.commentView.Text = comment;
+            holder.removeButton.SetTag (Resource.Id.removeComment, makeTag(groupPosition, childPosition));
             return view;
         }
         
+        private void handleCommentRemoveClick(object sender, EventArgs e)
+        {
+            int positionTag = (int)(((ImageButton)sender).GetTag(Resource.Id.removeComment));
+            int groupPos = parseGroupFromTag(positionTag);
+            int childPos = parseChildFromTag(positionTag);
+            string formation = getKey(groupPos);
+            string comment = FilteredData[formation][childPos];
+            DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
+            startDialogFragment(dialogFrag);
+        }
+
+        private int makeTag(int group, int child)
+        {
+            return group * 100 + child;
+        }
+
+        private int parseGroupFromTag(int tag)
+        {
+            return (tag - (tag % 100)) / 100;
+        }
+
+        private int parseChildFromTag(int tag)
+        {
+            /*int[] list = new int[2];
+            int group = tag % 100;
+            int child = tag - group;
+            list[0] = group;
+            list[1] = child;
+            return list;*/
+            return tag % 100;
+        }
+
         private void startDialogFragment(DialogFragment dialogFragment)
         {
             FragmentTransaction ft = context.SupportFragmentManager.BeginTransaction();
@@ -151,5 +189,11 @@ namespace jumpHelper
         {
             base.NotifyDataSetChanged();
         }
+    }
+
+    public class CommentRowHolder : Java.Lang.Object
+    {
+        public TextView commentView { get; set; }
+        public ImageButton removeButton { get; set; }
     }
 }

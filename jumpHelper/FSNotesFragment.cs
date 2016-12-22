@@ -37,7 +37,6 @@ namespace jumpHelper
             //this.HasOptionsMenu = true;
             
             View view = inflater.Inflate(Resource.Layout.FSNotes, container, false);
-            string[] tempArray = { "A", "B" };
             this.filterList = new List<string>();
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
             this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, false);

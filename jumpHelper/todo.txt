@@ -25,3 +25,7 @@
 
 - tagitys (esim. pyörimistag menee blokkeihin 7, 14, 15 jne.)
 - aikaleima ja filtteröinti sen mukaan, esim. näytä vain viimeisen kuukauden ajalta
+
+bugfixes:
+- delete otti hämärästi muitakin noteja deletoitavaksi (ainakin confirm-ikkunoita tuli). Tietämättä vikaa voisi olla jokatapauksessa hyvä
+	pistää noteille joku id.
