@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 
 using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Graphics;
 
 namespace jumpHelper
 {
@@ -17,6 +19,7 @@ namespace jumpHelper
         private static List<string> formations;
         private static Context context;
         private const int INIT_FORMATION_AMOUNT = 2;
+        private List<string> jumpList = new List<string>();
         public static NewJumpDialogFragment NewInstance(List<string> formationsList)
         {
             NewJumpDialogFragment fragment = new NewJumpDialogFragment();
@@ -35,21 +38,32 @@ namespace jumpHelper
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.NewJumpRequestDialog, container, false);
-            List<Spinner> spinnerList = new List<Spinner>();
-            for (var i = 0; i < INIT_FORMATION_AMOUNT; i++)
-            {
-                addSpinner(spinnerList, view);
-            }
-            ImageButton addSpinnerButton = view.FindViewById<ImageButton>(Resource.Id.addSpinner);
-            addSpinnerButton.Click += delegate
-            {
-                addSpinner(spinnerList, view);
-            };
             Button jumpDoneButton = view.FindViewById<Button>(Resource.Id.jumpDoneButton);
             jumpDoneButton.Enabled = false;
+            GridView gridView = view.FindViewById<GridView>(Resource.Id.formationsGridview);
+            gridView.Adapter = new FormationsGridViewAdapter(formations, this.Activity);
+            gridView.ChoiceMode = ChoiceMode.MultipleModal;
+            gridView.SetMultiChoiceModeListener(new MultiChoiceModeListener());
+            gridView.ItemClick += (object sender, AdapterView.ItemClickEventArgs e) =>
+            {
+                string formation = formations[e.Position];
+                if (jumpList.Contains(formation))
+                {
+                    jumpList.Remove(formation);
+                    if (jumpList.Count == 0)
+                        jumpDoneButton.Enabled = false;
+                    styleUncheckedCell(e.View);
+                }
+                else
+                {
+                    jumpList.Add(formation);
+                    jumpDoneButton.Enabled = true;
+                    styleCheckedCell(e.View);
+                }
+                loadJumpSequenceText(jumpDoneButton);
+            };
             jumpDoneButton.Click += delegate
             {
-                List<string> jumpList = getJumpList(spinnerList);
                 JumpCommentsFragment fragment = new JumpCommentsFragment(jumpList, this.Activity);
                 var ft = this.Activity.SupportFragmentManager.BeginTransaction();
                 ft.SetTransition(FragmentTransaction.TransitFragmentFade);
@@ -65,43 +79,57 @@ namespace jumpHelper
             return view;
         }
 
-        private void addSpinner(List<Spinner> spinnerList, View view)
+        private void styleCheckedCell(View view)
         {
-            LinearLayout spinnerLayout = view.FindViewById<LinearLayout>(Resource.Id.formationSpinners);
-            Spinner spinner = new Spinner(this.Activity);
-            spinner.ItemSelected += (sender, args) =>
+            TextView textView = view.FindViewById<TextView>(Resource.Id.formationInGrid);
+            textView.SetTextColor(new Color(ContextCompat.GetColor(this.Activity, Resource.Color.white)));
+            textView.SetBackgroundColor(new Color(ContextCompat.GetColor(this.Activity, Resource.Color.colorPrimaryDark)));
+        }
+
+        private void styleUncheckedCell(View view)
+        {
+            TextView textView = view.FindViewById<TextView>(Resource.Id.formationInGrid);
+            textView.SetTextColor(new Color(ContextCompat.GetColor(this.Activity, Resource.Color.colorPrimaryDark)));
+            textView.SetBackgroundColor(new Color(ContextCompat.GetColor(this.Activity, Resource.Color.white)));
+        }
+
+        private void loadJumpSequenceText(Button doneButton)
+        {
+            if (this.jumpList.Count == 0)
             {
-                Button doneButton = view.FindViewById<Button>(Resource.Id.jumpDoneButton);
-                doneButton.Enabled = true;
-                loadJumpSequenceText(doneButton, spinnerList);
-            };
-            var adapter = new ArrayAdapter<string>(this.Activity, Android.Resource.Layout.SimpleSpinnerItem, formations);
-            spinner.Adapter = adapter;
-            spinnerList.Add(spinner);
-            addSpinnerToEnd(spinner, spinnerLayout);
-        }
-
-        private void loadJumpSequenceText(Button doneButton, List<Spinner> spinnerList)
-        {
-            List<string> jumpList = getJumpList(spinnerList);
-            doneButton.Text = "Get notes for jump: " + string.Join(this.Activity.GetString(Resource.String.JumpSeparator), jumpList);
-        }
-
-        private List<string> getJumpList(List<Spinner> spinnerList)
-        {
-            List<string> jumpList = new List<string>();
-            spinnerList.ForEach(delegate (Spinner spinner)
+                doneButton.Text = "Waiting for selections";
+            }
+            else
             {
-                jumpList.Add(spinner.SelectedItem.ToString());
-            });
-            return jumpList;
+                doneButton.Text = "Get notes for jump: " + string.Join(this.Activity.GetString(Resource.String.JumpSeparator), jumpList);
+            }
+        }
+    }
+
+    public class MultiChoiceModeListener : Java.Lang.Object, GridView.IMultiChoiceModeListener
+    {
+        public bool OnCreateActionMode(ActionMode mode, IMenu menu)
+        {
+            return true;
         }
 
-        private void addSpinnerToEnd(Spinner spinner, LinearLayout spinnerLayout)
+        public void OnItemCheckedStateChanged(ActionMode mode, int position, long id, bool isChecked)
         {
-            int childCount = spinnerLayout.ChildCount;
-            Console.WriteLine("childcount: " + childCount);
-            spinnerLayout.AddView(spinner, childCount - 1);
+            AppEventHandler.emitInfoTextUpdate("State changed at pos: " + position + ", isChecked: " + isChecked);
+        }
+
+        public bool OnPrepareActionMode(ActionMode mode, IMenu menu)
+        {
+            return true;
+        }
+
+        public bool OnActionItemClicked(ActionMode mode, IMenuItem item)
+        {
+            return true;
+        }
+
+        public void OnDestroyActionMode(ActionMode mode)
+        {
         }
     }
 }

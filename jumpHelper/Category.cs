@@ -8,8 +8,8 @@ public class Category
     protected string name, shortName;
     protected string[] randoms = {"A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "O", "P", "Q"};
     protected string[] aBlocks = {"2", "4", "6", "7", "8", "9", "19", "21"};
-    protected string[] aaBlocks = {"14", "15", "22"};
-    protected string[] aaaBlocks = {"3", "17", "18"};
+    protected string[] aaBlocks = {"1", "11", "13", "14", "15", "18", "20", "22"};
+    protected string[] aaaBlocks = {"3", "5", "10", "12", "16", "17"};
     protected int minPointPerJump;
     protected int rounds;
 

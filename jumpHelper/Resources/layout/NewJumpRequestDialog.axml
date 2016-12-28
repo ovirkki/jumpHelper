@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content">
   <TextView
       android:id="@+id/newJumpHeader"
@@ -12,17 +12,19 @@
       android:padding="5dp"
       android:textSize="24dp"
       android:textStyle="bold" />
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/formationSpinners">
-    <ImageButton
-      style="@style/AppTheme.ImageButton"
-      android:src="@drawable/ic_add_white_24dp"
-      android:layout_margin="4px"
-      android:id="@+id/addSpinner"/>
-  </LinearLayout>
+  <GridView
+      android:id="@+id/formationsGridview"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:numColumns="auto_fit"
+      android:verticalSpacing="1dp"
+      android:horizontalSpacing="1dp"
+      android:stretchMode="columnWidth"
+      android:gravity="center"
+      android:columnWidth="50dp"
+      android:background="@color/gray"
+      android:padding="1dp"
+  />
   <Button
     android:text="Open notes"
     android:theme="@style/PrimaryFlatButton"

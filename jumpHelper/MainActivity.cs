@@ -104,6 +104,7 @@ namespace jumpHelper
         private async void openNewJumpDialog()
         {
             List<string> formations = await FSNotesHandler.getFormationFilterListAsync();
+            formations.Remove("Skills");
             formations.Sort(new FormationSorter());
             NewJumpDialogFragment newJumpDialog = NewJumpDialogFragment.NewInstance(formations);
             startDialogFragment(newJumpDialog);

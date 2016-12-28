@@ -28,7 +28,6 @@ namespace jumpHelper
             View view = inflater.Inflate(Resource.Layout.NewCommentLayout, container, false);
 
             Spinner spinner = view.FindViewById<Spinner>(Resource.Id.formationSelectSpinner);
-            //List<string> formations = FSNotesHandler.getFormationFilterListAsync();
             var adapter = new ArrayAdapter<string>(this.Activity, Android.Resource.Layout.SimpleSpinnerItem, formations);
             spinner.Adapter = adapter;
 

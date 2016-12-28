@@ -101,6 +101,7 @@
     <Compile Include="DeleteConfirmationDialog.cs" />
     <Compile Include="FileHandler.cs" />
     <Compile Include="Formations.cs" />
+    <Compile Include="FormationsGridViewAdapter.cs" />
     <Compile Include="FormationSorter.cs" />
     <Compile Include="FormationsWithNotesAdapter.cs" />
     <Compile Include="FSNotesFragment.cs" />
@@ -153,6 +154,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\NewJumpRequestDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\FormationGridCell.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -298,6 +302,9 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_add_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_add_white_24dp.png" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_add_white_24dp.png" />
+    <AndroidResource Include="Resources\drawable\IconD.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\IconD.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\IconD.png" />
     <Content Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
