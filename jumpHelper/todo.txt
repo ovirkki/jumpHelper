@@ -27,5 +27,5 @@
 - aikaleima ja filtteröinti sen mukaan, esim. näytä vain viimeisen kuukauden ajalta
 
 bugfixes:
-- delete otti hämärästi muitakin noteja deletoitavaksi (ainakin confirm-ikkunoita tuli). Tietämättä vikaa voisi olla jokatapauksessa hyvä
+/- delete otti hämärästi muitakin noteja deletoitavaksi (ainakin confirm-ikkunoita tuli). Tietämättä vikaa voisi olla jokatapauksessa hyvä
 	pistää noteille joku id.

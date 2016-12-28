@@ -32,7 +32,7 @@ namespace jumpHelper
             View view = inflater.Inflate(Resource.Layout.JumpNotes, container, false);
             view.FindViewById<TextView>(Resource.Id.jumpCommentsIntro).Text = string.Join(GetString(Resource.String.JumpSeparator), jump);
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.jumpNotesListView);
-            var adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.jump, true);
+            var adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.jump, null, true);
             listOutput.SetAdapter(adapter);
             for (int i = 0; i < adapter.GroupCount; i++)
                 listOutput.ExpandGroup(i);

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+  <TextView
+      android:id="@+id/newJumpHeader"
+      android:gravity="center_horizontal"
+      android:text="Select formations"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="5dp"
+      android:textSize="24dp"
+      android:textStyle="bold" />
+  <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/formationSpinners">
+    <ImageButton
+      style="@style/AppTheme.ImageButton"
+      android:src="@drawable/ic_add_white_24dp"
+      android:layout_margin="4px"
+      android:id="@+id/addSpinner"/>
+  </LinearLayout>
+  <Button
+    android:text="Open notes"
+    android:theme="@style/PrimaryFlatButton"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/jumpDoneButton"
+    android:layout_marginTop="10dp" />
+</LinearLayout>

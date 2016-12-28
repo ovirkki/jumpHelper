@@ -43,7 +43,6 @@ namespace jumpHelper
             };
             cancelButton.Click += delegate {
                 Dismiss();
-                AppEventHandler.emitInfoTextUpdate("Canceling comment editing");
             };
             return view;
         }

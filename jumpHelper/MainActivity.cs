@@ -88,6 +88,9 @@ namespace jumpHelper
                 case Resource.Id.start_timer:
                     openTimerDialog();
                     return true;
+                case Resource.Id.new_jump:
+                    openNewJumpDialog();
+                    return true;
                 default:
                     return false;
             }
@@ -98,7 +101,13 @@ namespace jumpHelper
             TimerDialogFragment timerDialog = TimerDialogFragment.NewInstance(this);
             startDialogFragment(timerDialog);
         }
-
+        private async void openNewJumpDialog()
+        {
+            List<string> formations = await FSNotesHandler.getFormationFilterListAsync();
+            formations.Sort(new FormationSorter());
+            NewJumpDialogFragment newJumpDialog = NewJumpDialogFragment.NewInstance(formations);
+            startDialogFragment(newJumpDialog);
+        }
         private async void requestNewComment()
         {
             List<string> formations = await FSNotesHandler.getFormationFilterListAsync();

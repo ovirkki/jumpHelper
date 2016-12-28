@@ -34,7 +34,6 @@ namespace jumpHelper
                 {
                     commentList.Add(comment);
                 }
-                Console.WriteLine("comments from file for form: " + formationName);
                 completeData.Add(formationName, commentList);
             }
             return completeData;
@@ -42,8 +41,6 @@ namespace jumpHelper
 
         public async static Task addDataAsync(string formation, string comment)
         {
-            Console.WriteLine("add data: " + formation);
-            Console.WriteLine("dir: " + filePath);
             XElement fileData = await loadDataAsync();
             XElement formationXElement = await getFormationDataAsync(formation, fileData);
             if (formationXElement == null)
@@ -59,7 +56,6 @@ namespace jumpHelper
                 formationXElement.Add(new XElement("Comment", comment));
             }
             await saveDataAsync(fileData);
-            AppEventHandler.emitInfoTextUpdate("Data saved (" + formation + ")");
         }
 
         public async static Task removeDataAsync(string formation, string commentForRemoval)

@@ -39,7 +39,7 @@ namespace jumpHelper
             View view = inflater.Inflate(Resource.Layout.FSNotes, container, false);
             this.filterList = new List<string>();
             ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
-            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, false);
+            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, listener, false);
             listOutput.SetAdapter(this.adapter);
             AppEventHandler.DataUpdated += this.onDataUpdate;
             AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
@@ -47,10 +47,8 @@ namespace jumpHelper
             //Floating action button
             addNoteFab.Click += async (object sender, EventArgs e) =>
             {
-                AppEventHandler.emitInfoTextUpdate("add note pressed");
                 await requestNewComment();
             };
-            //initNoteList(view);
             return view;
         }
 
@@ -86,16 +84,6 @@ namespace jumpHelper
                     return true;
             }
         }*/
-        
-        private async Task initNoteList(View view)
-        {
-            this.filterList = await FSNotesHandler.getFormationFilterListAsync();
-            ExpandableListView listOutput = view.FindViewById<ExpandableListView>(Resource.Id.notesListView);
-            this.adapter = new FormationsWithNotesAdapter(this.Activity, listOutput, FSNotesHandler.Notes, this.filterList, false);
-            listOutput.SetAdapter(this.adapter);
-            AppEventHandler.DataUpdated += this.onDataUpdate;
-            AppEventHandler.CategoryUpdated += this.onCategoryUpdate;
-        }
 
         private async Task updateDataToFile(string operation, string formation, string comment)
         {

@@ -20,19 +20,21 @@ namespace jumpHelper
         List<string> filterList;
         FragmentActivity context;
         ExpandableListView parentView;
+        ActivityCallBackListener listener;
         bool isDialog;
-        int groupLayoutId;
         public FormationsWithNotesAdapter(
             FragmentActivity context,
             ExpandableListView parentView,
             SortedDictionary<string, List<string>> noteDictionary,
             List<string> filterList,
+            ActivityCallBackListener listener,
             bool isDialog)
         {
             this.noteDictionary = noteDictionary;
             this.context = context;
             this.parentView = parentView;
             this.filterList = filterList;
+            this.listener = listener;
             this.isDialog = isDialog; //Shame on me using flag, maybe own group layout for dialogfragment and use layout id as constructor parameter
         }
 
@@ -110,7 +112,7 @@ namespace jumpHelper
                 view = this.context.LayoutInflater.Inflate(Resource.Layout.NoteListRowComments, null);
                 holder.commentView = view.FindViewById<TextView>(Resource.Id.commentField);
                 holder.removeButton = view.FindViewById<ImageButton>(Resource.Id.removeComment);
-                if (isDialog)
+                if (isDialog && this.listener == null)
                 {
                     holder.removeButton.Visibility = ViewStates.Gone;
                 }
@@ -133,7 +135,7 @@ namespace jumpHelper
             string formation = getKey(groupPos);
             string comment = FilteredData[formation][childPos];
             DeleteConfirmationDialog dialogFrag = DeleteConfirmationDialog.NewInstance(formation, comment);
-            startDialogFragment(dialogFrag);
+            listener.startDialogFragment(dialogFrag);
         }
 
         private int makeTag(int group, int child)
@@ -148,15 +150,9 @@ namespace jumpHelper
 
         private int parseChildFromTag(int tag)
         {
-            /*int[] list = new int[2];
-            int group = tag % 100;
-            int child = tag - group;
-            list[0] = group;
-            list[1] = child;
-            return list;*/
             return tag % 100;
         }
-
+        /*
         private void startDialogFragment(DialogFragment dialogFragment)
         {
             FragmentTransaction ft = context.SupportFragmentManager.BeginTransaction();
@@ -169,7 +165,7 @@ namespace jumpHelper
 
             dialogFragment.Show(ft, "dialog");
         }
-        
+        */
 
         public override bool HasStableIds
         {

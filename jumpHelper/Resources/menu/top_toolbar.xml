@@ -15,6 +15,10 @@
     android:id="@+id/category"
     app:showAsAction="always" />
   <item
+    android:id="@+id/new_jump"
+    app:showAsAction="ifRoom"
+    android:title="New jump"/>
+  <item
        android:id="@+id/menu_settings"
        android:showAsAction="never"
        android:title="Settings" />

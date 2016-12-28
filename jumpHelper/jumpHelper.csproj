@@ -112,6 +112,7 @@
     <Compile Include="JumpTimer.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MakeJumpsFragment.cs" />
+    <Compile Include="NewJumpDialog.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TimerDialogFragment.cs" />
@@ -149,6 +150,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\TimerDialog.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NewJumpRequestDialog.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
